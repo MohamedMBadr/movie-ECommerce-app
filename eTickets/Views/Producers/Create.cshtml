@@ -1,0 +1,46 @@
+﻿@model Producer
+
+@{
+    ViewData["Title"] = "Add New Producer";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add A New Producer</h1>
+        </p>
+        <div class="row">
+
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create">
+                    <partial name="PartialViews/CreateEditProducersPartialView" />
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                    </div>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $("#ProfilePictureURL").val();
+        })
+
+        $("#ProfilePictureURL").on("change", function () {
+            var output = document.getElementById('ProfilePicturePreview');
+            output.src = $(this).val();
+        })
+    </script>
+    }

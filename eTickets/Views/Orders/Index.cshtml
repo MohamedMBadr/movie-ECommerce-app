@@ -1,0 +1,64 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "All Orders";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>List of all your orders</h4>
+        </p>
+
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th  >Order Id</th>
+                    <th  >Items</th>
+                    <th  > Total</th>
+
+                    @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                    <th class="align-middle" >User</th>
+                    }
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td >@order.Id</td>
+                        <td >
+                            <ul style="list-style-type:none">
+
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li>
+                                        <div class="alert alert-info">
+                                            <span class="badge bg-success">@item.Amount</span>  [ @item.Price.ToString("c")] - @item.Movie.Name
+                                        </div>
+                                    </li>
+
+
+                                }
+                            </ul>
+                        </td>
+                        <td >
+                            @order.OrderItems.Select(m=>m.Movie.Price*m.Amount).Sum().ToString("c")
+                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                        {
+                                <td > 
+                                    @order.User.FullName
+                                </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

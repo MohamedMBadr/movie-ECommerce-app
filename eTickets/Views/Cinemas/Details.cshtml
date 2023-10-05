@@ -1,0 +1,45 @@
+﻿@model Cinema
+
+@{
+    ViewData["Title"] = "Cinema Data";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Details for @Model.Name</h1>
+        </p>
+        <div class="row">
+
+            <div class="col-md-8 offset-2">
+
+                <partial name="PartialViews/DetailsDeleteCinemaPartialView" />
+
+
+                <div class="form-group">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.Id"> Edit</a>
+                    }
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+@section Scripts{
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('LogoPreview');
+            output.src = $("#Logo").val();
+        })
+
+
+    </script>
+    }
